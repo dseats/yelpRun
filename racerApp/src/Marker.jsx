@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 
-const Marker = ({ map, feature }) => {
-  const { geometry } = feature;
+const Marker = ({ map }) => {
+  // const { geometry } = feature;
 
   const markerRef = useRef();
 
   useEffect(() => {
     markerRef.current = new mapboxgl.Marker()
-      .setLngLat([geometry.coordinates[0], geometry.coordinates[1]])
+      .setLngLat([-74.05850529670715, 40.60216238663875])
       .addTo(map);
 
     return () => {

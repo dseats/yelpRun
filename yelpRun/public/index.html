@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>NYC Marathon Route</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiZGNzZWF0czAxIiwiYSI6ImNscGc2amtudzFpbW8yaW93eDY0ODZjOXkifQ.Bbbg8UHQHsKDWJZ2TIVaVw";
+
+      const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v12",
+        center: [-73.9851, 40.7589], // NYC center
+        zoom: 12,
+      });
+
+      map.on("load", () => {
+        map.addSource("race-route", {
+          type: "geojson",
+          data: "nyc_marathon_route.geojson", // your file
+        });
+
+        map.addLayer({
+          id: "race-route-line",
+          type: "line",
+          source: "race-route",
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-color": "#FF0000",
+            "line-width": 4,
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
